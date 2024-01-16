@@ -13,13 +13,17 @@ const starContainer = {
 export default function StarRating({
   maxRating = 5,
   color = "#fcc419",
-  size = "48px",
+  size = 48,
+  message = [],
+  defaultRating = 0,
+  onSetRating,
 }) {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
-
+  console.log(message.length);
   function handleRating(x) {
     setRating(x);
+    onSetRating(x);
   }
   const textStyle = {
     lineHeight: "1",
@@ -42,15 +46,20 @@ export default function StarRating({
           />
         ))}
       </div>
-      <p style={textStyle}>{tempRating || rating || ""}</p>
+      <p style={textStyle}>
+        {message.length === maxRating
+          ? message[tempRating ? tempRating - 1 : rating - 1]
+          : tempRating || rating || ""}
+      </p>
     </div>
   );
 }
 function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
   const starStyle = {
-    height: `${size}`,
-    width: `${size}`,
+    height: `${size}px`,
+    width: `${size}px`,
     display: "block",
+    cursor: "pointer",
   };
   return (
     <span
