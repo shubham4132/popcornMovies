@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
-
+//Lecture till 152
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -48,7 +48,8 @@ const tempWatchedData = [
   },
 ];
 
-const average = (arr) => arr.reduce((acc, cur) => acc + cur / arr.length, 0);
+const average = (arr) =>
+  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 const KEY = "50a82fb";
 
@@ -254,7 +255,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   )?.userRating;
   console.log(watchedUserRating);
   const {
-    imdbID,
     Title: title,
     Year: year,
     Poster: poster,
@@ -266,20 +266,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Director: director,
     Genre: genre,
   } = movie;
-  // const imdbID = movie.imdbID;
-  // const Title = movie.Title;
-  // const year = movie.Year;
-  // const poster = movie.Poster;
-  // const runtime = movie.Runtime;
-  // const imdbRating = movie.imdbRating;
-  // const plot = movie.Plot;
-  // const released = movie.Released;
-  // const actors = movie.Actors;
-  // const director = movie.Director;
-  // const genre = movie.Genre;
   function handleAdd() {
     const newWatchedMovie = {
-      imdbID,
+      imdbID: selectedId,
       title,
       year,
       poster,
@@ -287,7 +276,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
     };
-
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
@@ -305,13 +293,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       getMovieDetails();
     },
     [selectedId]
-  );
-  useEffect(
-    function () {
-      if (!title) return;
-      document.title = `Movie | ${title}`;
-    },
-    [title]
   );
   return (
     <div className="details">
