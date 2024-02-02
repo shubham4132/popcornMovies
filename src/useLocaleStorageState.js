@@ -12,3 +12,4 @@ export function useLocaleStorageState(initialState, key) {
   );
   return [value, setValue];
 }
+//AGAIN I HAVE TO UNDERSTAND THIS USELOCALSTORAGESTATE CLEARLY AND COMPARE IT WITH V5
